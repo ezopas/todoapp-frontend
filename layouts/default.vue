@@ -8,20 +8,37 @@
       app
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+        <template v-if="!authenticated">
+          <v-list-item v-for="(item, i) in ifLoged"
+                       :key="i"
+                       :to="item.to"
+                       router
+                       exact>
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+        <template v-if="authenticated">
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+
       </v-list>
     </v-navigation-drawer>
     <v-app-bar
@@ -29,7 +46,8 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />{{authenticated}}
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      {{authenticated}}
 <!--      <v-btn-->
 <!--        icon-->
 <!--        @click.stop="miniVariant = !miniVariant"-->
@@ -96,16 +114,18 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
+        // {
+        //   icon: 'mdi-apps',
+        //   title: 'Welcome',
+        //   to: '/'
+        // },
         {
           icon: 'mdi-chart-bubble',
           title: 'Inspire',
-          to: '/inspire'
+          to: '/board'
         },
+      ],
+      ifLoged: [
         {
           title: 'Sign up',
           to: '/signup'

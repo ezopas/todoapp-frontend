@@ -4,18 +4,18 @@
 
       <v-text-field
         label="E-mail"
-        v-model="form.email"
+        v-model.trim="form.email"
         type="email"
         required
       ></v-text-field>
-
+      <small class="form-text text-danger" v-if="errors.email">{{errors.email[0]}}</small>
       <v-text-field
         label="Password"
-        v-model="form.password"
+        v-model.trim="form.password"
         type="password"
         required
       ></v-text-field>
-
+      <small class="form-text text-danger" v-if="errors.password">{{errors.password[0]}}</small>
       <v-btn
         color="green"
         type="submit"
@@ -34,35 +34,21 @@
     data(){
       return {
         form :{
-          email:null,
-          password:null
+          email: null,
+          password: null
         }
       }
     },
-    created(){
-      // if(User.loggedIn()){
-      //   this.$router.push({name:'forum'})
-      // }
-    },
     methods:{
-      // login(){
-
-      //   //User.login(this.form)
-      // }
 
       async submit() {
         await this.$auth.loginWith("local", {
           data: this.form
-        })
+        });
 
         this.$router.push({
-          path: this.$route.query.redirect || "/"
-        })
-      // submit() {
-      //   console.log("darau");
-      //     axios.post('http://127.0.0.1:9000/api/auth/login', this.form)
-      //     .then(res => console.log(res.data))
-      //     .error(error => console.log(error.response.data));
+          path: this.$route.query.redirect || "/board"
+        });
       }
     }
   }

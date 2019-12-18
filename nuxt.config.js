@@ -29,7 +29,10 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ["./plugins/mixins/user.js"],
+  plugins: [
+    "./plugins/mixins/user.js",
+    "./plugins/mixins/validation.js",
+  ],
   /*
   ** Nuxt.js dev-modules
   */
@@ -46,9 +49,9 @@ export default {
     baseURL: "http://127.0.0.1:9000/api"
   },
 
-  router: {
-    middleware: ['auth']
-  },
+  // router: {
+  //   middleware: ["clearValidationErrors"]
+  // },
 
   auth: {
     strategies: {

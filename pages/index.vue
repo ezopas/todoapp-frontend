@@ -70,6 +70,7 @@
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
 export default {
+  middleware: ['guest'],
   components: {
     VuetifyLogo
   }
